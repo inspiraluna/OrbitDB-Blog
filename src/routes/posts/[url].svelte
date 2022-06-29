@@ -7,6 +7,7 @@ export const load = async ({ fetch, params, url }) => {
 </script>
 <svelte:head>
     <title>{post.attributes.title}</title>
+    <meta name="description" content={post.attributes.description}>
 </svelte:head>
 <style>
     :global(article) {
