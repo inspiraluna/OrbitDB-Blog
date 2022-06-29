@@ -1,11 +1,12 @@
-<!-- /src/routes/index.svelte -->
- <script context="module">
-  export async function load({fetch}) {
+<script context="module">
+  ///src/routes/index.svelte
+export async function load({fetch}) {
     const posts = await fetch("/api").then((r) => r.json())
+    // const posts = []
     return {
         props: {posts}
     }
-  }
+}
 </script>
 
 <script>

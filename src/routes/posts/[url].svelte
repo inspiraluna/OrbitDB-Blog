@@ -5,7 +5,9 @@ export const load = async ({ fetch, params, url }) => {
       return {props: {post}}
     }
 </script>
-
+<svelte:head>
+    <title>{post.attributes.title}</title>
+</svelte:head>
 <style>
     :global(article) {
         padding: 4vw;
@@ -15,7 +17,7 @@ export const load = async ({ fetch, params, url }) => {
 <script>
     export let post;
 </script>
-  
+
 <article>
     <h1 class="section-header">{post.attributes.title}</h1>
     {@html post.html}

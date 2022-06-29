@@ -15,7 +15,7 @@ import {rehype} from "rehype";
  */
 export function importMarkdowns(markdownPath) {
     let fileNames = glob.sync(`${markdownPath}*.md`);
-    return fileNames.map((path) => convertMarkdown(path));
+    return fileNames.map((path) => convertMarkdown(path))
 }
 
 /**
@@ -23,7 +23,7 @@ export function importMarkdowns(markdownPath) {
  * @param {string} path path to file
  * @returns 
  */
-export async function convertMarkdown(path) {
+export function convertMarkdown(path) {
     let file = fs.readFileSync(path, 'utf8');
 
     let { attributes, body } = fm(file);
@@ -34,6 +34,5 @@ export async function convertMarkdown(path) {
 }
 export function convertToPostPreview(object) {
     const url = object.path.replace(".md","").replace("src/", "");
-
     return {...object.attributes, url};
 }
