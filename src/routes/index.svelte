@@ -1,6 +1,12 @@
+
+
 <script context="module">
+
   ///src/routes/index.svelte
+// import { createIPFS } from "$lib/ipfs"
+
 export async function load({fetch}) {
+  // await createIPFS()
     const posts = await fetch("/api").then((r) => r.json())
     // const posts = []
     return {
@@ -11,7 +17,29 @@ export async function load({fetch}) {
 
 <script>
   import PostCard from "/src/components/post-card.svelte";
+  // import {Create} from "/src/modules/ipfs-core/ipfs-core.js"
   export let posts;
+  export let id;
+  import { onMount } from 'svelte';
+
+  onMount(async () => {
+  //from https://github.com/DougAnderson444/ipfs-vite-svelte-kit
+  // 	// In Svelte, a hot module refresh can cause lockfile problems
+  // 	// so we assign the ipfs node to globalThis to avoid lock file issues
+  let ipfsNode
+  if (!globalThis.ipfsNode) {
+      const IPFSmodule = await import('../modules/ipfs-core/ipfs-core.js');
+      const IPFS = IPFSmodule.default;
+      ipfsNode = await IPFS.create();
+      globalThis.ipfsNode = ipfsNode;
+    } else {
+      ipfsNode = globalThis.ipfsNode;
+    } 
+    id = await ipfsNode.id()
+
+    console.log(id)
+  });
+
 </script> 
 <style>
     main {
@@ -28,5 +56,6 @@ export async function load({fetch}) {
   {#each posts as post}
     <PostCard {...post}/>
   {/each}
+  {id?`Node Id   ${id.id}`:'Initializing...'}
 </main>
 

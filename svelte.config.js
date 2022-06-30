@@ -7,5 +7,15 @@ export default {
 			// default options are shown
 			out: 'build'
 		})
+	},
+	vite: {
+		build: {
+			target: 'esnext',
+			minify: false
+		  },
+		  define: {
+			'process.env.NODE_DEBUG': 'false',
+			'global': 'globalThis'
+		  }
 	}
 };
